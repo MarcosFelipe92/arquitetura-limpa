@@ -33,4 +33,20 @@ export class ProductRepository implements ProductGateway {
 
     return output;
   }
+
+  public async findById(id: string): Promise<Product | null> {
+    const product = await this.prisma.product.findUnique({ where: { id: id } });
+
+    if (!product) {
+      return null;
+    }
+
+    const output = Product.with({ id: product.id, name: product.name, price: product.price, quantity: product.quantity });
+
+    return output;
+  }
+
+  public async delete(id: string): Promise<void> {
+    await this.prisma.product.delete({ where: { id: id } });
+  }
 }
