@@ -19,6 +19,7 @@ export class ProductRepository implements ProductGateway {
 
     await this.prisma.product.create({ data });
   }
+
   public async list(): Promise<Product[]> {
     const products = await this.prisma.product.findMany();
 
@@ -48,5 +49,16 @@ export class ProductRepository implements ProductGateway {
 
   public async delete(id: string): Promise<void> {
     await this.prisma.product.delete({ where: { id: id } });
+  }
+
+  public async update(id: string, data: Partial<Product>): Promise<void> {
+    await this.prisma.product.update({
+      where: { id: id },
+      data: {
+        name: data?.name,
+        price: data?.price,
+        quantity: data?.quantity,
+      },
+    });
   }
 }

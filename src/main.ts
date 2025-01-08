@@ -1,3 +1,5 @@
+import "express-async-errors";
+
 import { ApiExpress } from "./infra/api/express/api.express";
 import { initRoutes } from "./routes";
 

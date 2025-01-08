@@ -38,10 +38,16 @@ export class Product {
   }
 
   public increaseQuantity(quantity: number) {
+    if (quantity < 0) {
+      throw new Error("Quantidade não pode ser negativa");
+    }
     this.props.quantity += quantity;
   }
 
   public decreaseQuantity(quantity: number) {
+    if (this.props.quantity - quantity < 0) {
+      throw new Error("Estoque insuficiente");
+    }
     this.props.quantity -= quantity;
   }
 }

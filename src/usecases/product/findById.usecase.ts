@@ -1,6 +1,7 @@
 import { Product } from "@prisma/client";
 import { ProductGateway } from "../../domain/product/gateway/product.gateway";
 import { Usecase } from "../usecases";
+import { NotFoundError } from "../../infra/api/express/middlewares/api.errors";
 
 export type FindByIdProductInputDto = { id: string };
 
@@ -22,7 +23,7 @@ export class FindByIdProductUsecase implements Usecase<FindByIdProductInputDto, 
     const product = await this.productGateway.findById(input.id);
 
     if (!product) {
-      throw new Error(`Produto com o id ${input.id} não existe.`);
+      throw new NotFoundError(`Produto com o id ${input.id} não existe.`);
     }
 
     const output = this.presentOutput(product);

@@ -4,7 +4,7 @@ GET http://localhost:8080/products
 ###
 
 # @name FindById
-GET http://localhost:8080/products/f94c9d21-4cf3-403c-a6df-a2504b225f5a
+GET http://localhost:8080/products/9f8b9106-e019-4292-8419-84fa07a49d12
 Content-Type: application/json
 
 ###
@@ -16,6 +16,27 @@ Content-Type: application/json
 {
     "name":"Produto 3",
     "price": 10.99
+}
+
+###
+
+# @name Update
+PUT http://localhost:8080/products/9f8b9106-e019-4292-8419-84fa07a49d12
+Content-Type: application/json
+
+{
+    "name":"teclado",
+    "price": 20.99
+}
+
+###
+
+# @name IncreaseQuantity
+PUT http://localhost:8080/products/increase-quantity/9f8b9106-e019-4292-8419-84fa07a49d12
+Content-Type: application/json
+
+{
+    "quantity":10
 }
 
 ###

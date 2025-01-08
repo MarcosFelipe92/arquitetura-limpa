@@ -1,6 +1,7 @@
 import { Api } from "../api";
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import { Route } from "./routes/route";
+import { errorMiddleware } from "./middlewares/error.middleware";
 
 export class ApiExpress implements Api {
   private app: Express;
@@ -9,6 +10,9 @@ export class ApiExpress implements Api {
     this.app = express();
     this.app.use(express.json());
     this.addRoutes(routes);
+    this.app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+      errorMiddleware(err, req, res, next);
+    });
   }
 
   public static build(routes: Route[]) {
