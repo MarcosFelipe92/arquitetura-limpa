@@ -1,23 +1,24 @@
 import { Request, Response } from "express";
-import {
-  IncreaseQuantityProductInputDto,
-  IncreaseQuantityProductOutputDto,
-  IncreaseQuantityProductUsecase,
-} from "../../../../../usecases/product/increaseQuantity.usecase";
+
 import { HttpMethod, Route } from "../route";
 import { Usecase } from "../../../../../usecases/usecases";
+import {
+  DecreaseQuantityProductInputDto,
+  DecreaseQuantityProductOutputDto,
+  DecreaseQuantityProductUsecase,
+} from "../../../../../usecases/product/decrease.usecase";
 
-export type IncreaseQuantityProductResponseDto = { id: string };
+export type DecreaseQuantityProductResponseDto = { id: string };
 
-export class IncreaseQuantityProductRoute implements Route {
+export class DecreaseQuantityProductRoute implements Route {
   private constructor(
     private readonly path: string,
     private readonly method: HttpMethod,
-    private readonly service: Usecase<IncreaseQuantityProductInputDto, IncreaseQuantityProductOutputDto>
+    private readonly service: Usecase<DecreaseQuantityProductInputDto, DecreaseQuantityProductOutputDto>
   ) {}
 
-  public static build(service: IncreaseQuantityProductUsecase) {
-    return new IncreaseQuantityProductRoute("/products/increase-quantity/:id", HttpMethod.PUT, service);
+  public static build(service: DecreaseQuantityProductUsecase) {
+    return new DecreaseQuantityProductRoute("/products/decrease-quantity/:id", HttpMethod.PUT, service);
   }
 
   public getHandler(): (request: Request, response: Response) => Promise<void> {
@@ -25,12 +26,12 @@ export class IncreaseQuantityProductRoute implements Route {
       const { id } = request.params;
       const { quantity } = request.body;
 
-      const input: IncreaseQuantityProductInputDto = {
+      const input: DecreaseQuantityProductInputDto = {
         id,
         quantity,
       };
 
-      const output: IncreaseQuantityProductOutputDto = await this.service.execute(input);
+      const output: DecreaseQuantityProductOutputDto = await this.service.execute(input);
 
       const responseData = this.present(output);
 
@@ -45,7 +46,7 @@ export class IncreaseQuantityProductRoute implements Route {
     return this.method;
   }
 
-  private present(input: IncreaseQuantityProductOutputDto): IncreaseQuantityProductResponseDto {
+  private present(input: DecreaseQuantityProductOutputDto): DecreaseQuantityProductResponseDto {
     const response = { id: input.id };
 
     return response;

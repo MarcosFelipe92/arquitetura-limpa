@@ -12,6 +12,8 @@ import { UpdateProductUsecase } from "../usecases/product/update.usecase";
 import { UpdateProductRoute } from "../infra/api/express/routes/product/update.route";
 import { IncreaseQuantityProductUsecase } from "../usecases/product/increaseQuantity.usecase";
 import { IncreaseQuantityProductRoute } from "../infra/api/express/routes/product/increaseQuantity.route";
+import { DecreaseQuantityProductUsecase } from "../usecases/product/decrease.usecase";
+import { DecreaseQuantityProductRoute } from "../infra/api/express/routes/product/decreaseQuantity.route";
 
 export function initProductModule() {
   const repository = ProductRepository.build(prisma);
@@ -22,6 +24,7 @@ export function initProductModule() {
   const deleteProductUsecase = DeleteProductUsecase.build(repository);
   const updateProductUsecase = UpdateProductUsecase.build(repository);
   const increaseQuantityProductUsecase = IncreaseQuantityProductUsecase.build(repository);
+  const decreaseQuantityProductUsecase = DecreaseQuantityProductUsecase.build(repository);
 
   const createRoute = CreateProductRoute.build(createProductUsecase);
   const listRoute = ListProductRoute.build(listProductUsecase);
@@ -29,6 +32,7 @@ export function initProductModule() {
   const deleteRoute = DeleteProductRoute.build(deleteProductUsecase);
   const updateRoute = UpdateProductRoute.build(updateProductUsecase);
   const increaseQuantityRoute = IncreaseQuantityProductRoute.build(increaseQuantityProductUsecase);
+  const decreaseQuantityRoute = DecreaseQuantityProductRoute.build(decreaseQuantityProductUsecase);
 
-  return [createRoute, listRoute, findByIdRoute, deleteRoute, updateRoute, increaseQuantityRoute];
+  return [createRoute, listRoute, findByIdRoute, deleteRoute, updateRoute, increaseQuantityRoute, decreaseQuantityRoute];
 }

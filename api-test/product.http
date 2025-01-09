@@ -36,6 +36,16 @@ PUT http://localhost:8080/products/increase-quantity/9f8b9106-e019-4292-8419-84f
 Content-Type: application/json
 
 {
+    "quantity":30
+}
+
+###
+
+# @name DecreaseQuantity
+PUT http://localhost:8080/products/decrease-quantity/9f8b9106-e019-4292-8419-84fa07a49d12
+Content-Type: application/json
+
+{
     "quantity":10
 }
 
