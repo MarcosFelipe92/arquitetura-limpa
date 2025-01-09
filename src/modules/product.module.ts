@@ -3,7 +3,7 @@ import { ListProductUsecase } from "../usecases/product/list.usecase";
 import { ProductRepository } from "../infra/repositories/product/product.repository";
 import { CreateProductRoute } from "../infra/api/express/routes/product/create.route";
 import { ListProductRoute } from "../infra/api/express/routes/product/list.route";
-import { prisma } from "../package/prisma/prisma";
+import { prisma } from "../helpers/prisma/prisma";
 import { FindByIdProductRoute } from "../infra/api/express/routes/product/findById.route";
 import { FindByIdProductUsecase } from "../usecases/product/findById.usecase";
 import { DeleteProductUsecase } from "../usecases/product/delete.usecase";

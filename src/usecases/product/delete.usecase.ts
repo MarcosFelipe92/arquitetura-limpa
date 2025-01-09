@@ -1,6 +1,7 @@
 import { Product } from "@prisma/client";
 import { ProductGateway } from "../../domain/product/gateway/product.gateway";
 import { Usecase } from "../usecases";
+import { NotFoundError } from "../../infra/api/errors/api.errors";
 
 export type DeleteProductInputDto = {
   id: string;
@@ -15,13 +16,14 @@ export class DeleteProductUsecase implements Usecase<DeleteProductInputDto, Dele
     return new DeleteProductUsecase(productGateway);
   }
 
-  public async execute(input: DeleteProductInputDto): Promise<DeleteProductOutputDto> {
-    if (!this.productGateway.findById(input.id)) {
-      throw new Error(`Produto não encontrado com o id: ${input.id}`);
+  public async execute({ id }: DeleteProductInputDto): Promise<DeleteProductOutputDto> {
+    const product = await this.productGateway.findById(id);
+    if (!product) {
+      throw new NotFoundError(`Produto com o id ${id} não existe.`);
     }
 
-    await this.productGateway.delete(input.id);
-    const output = { id: input.id };
+    await this.productGateway.delete(id);
+    const output = { id };
 
     return output;
   }

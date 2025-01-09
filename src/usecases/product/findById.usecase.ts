@@ -1,7 +1,7 @@
 import { Product } from "@prisma/client";
 import { ProductGateway } from "../../domain/product/gateway/product.gateway";
 import { Usecase } from "../usecases";
-import { NotFoundError } from "../../infra/api/express/middlewares/api.errors";
+import { NotFoundError } from "../../infra/api/errors/api.errors";
 
 export type FindByIdProductInputDto = { id: string };
 

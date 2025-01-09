@@ -1,5 +1,6 @@
 import { Product } from "../../domain/product/entity/product";
 import { ProductGateway } from "../../domain/product/gateway/product.gateway";
+import { NotFoundError } from "../../infra/api/errors/api.errors";
 import { Usecase } from "../usecases";
 
 export type UpdateProductInputDto = {
@@ -20,17 +21,15 @@ export class UpdateProductUsecase implements Usecase<UpdateProductInputDto, Upda
   }
 
   public async execute({ id, name, price }: UpdateProductInputDto): Promise<UpdateProductOutputDto> {
-    const product = Product.build(name, price);
-    await this.productGateway.update(id, product);
+    const product = await this.productGateway.findById(id);
+    if (!product) {
+      throw new NotFoundError(`Produto com o id ${id} não existe.`);
+    }
 
-    const output = this.presentOutput(product);
+    await this.productGateway.update(id, { name, price });
+
+    const output = { id };
 
     return output;
-  }
-
-  private presentOutput(product: Product): UpdateProductOutputDto {
-    return {
-      id: product.id,
-    };
   }
 }

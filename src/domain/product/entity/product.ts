@@ -1,3 +1,5 @@
+import { InsufficientStockError, NegativeProductPriceError, NegativeQuantityError } from "../../exceptions/product.errors";
+
 export type ProductProps = {
   id: string;
   name: string;
@@ -9,6 +11,9 @@ export class Product {
   private constructor(readonly props: ProductProps) {}
 
   public static build(name: string, price: number) {
+    if (price < 0) {
+      throw new NegativeProductPriceError();
+    }
     return new Product({
       id: crypto.randomUUID().toString(),
       name,
@@ -39,14 +44,14 @@ export class Product {
 
   public increaseQuantity(quantity: number) {
     if (quantity < 0) {
-      throw new Error("Quantidade não pode ser negativa");
+      throw new NegativeQuantityError();
     }
     this.props.quantity += quantity;
   }
 
   public decreaseQuantity(quantity: number) {
     if (this.props.quantity - quantity < 0) {
-      throw new Error("Estoque insuficiente");
+      throw new InsufficientStockError();
     }
     this.props.quantity -= quantity;
   }

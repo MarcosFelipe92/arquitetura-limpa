@@ -5,5 +5,5 @@ export interface ProductGateway {
   list(): Promise<Product[]>;
   findById(id: string): Promise<Product | null>;
   delete(id: string): Promise<void>;
-  update(id: string, product: Product): Promise<void>;
+  update(id: string, data: Partial<{ id: string; name: string; price: number; quantity: number }>): Promise<void>;
 }

@@ -51,7 +51,7 @@ export class ProductRepository implements ProductGateway {
     await this.prisma.product.delete({ where: { id: id } });
   }
 
-  public async update(id: string, data: Partial<Product>): Promise<void> {
+  public async update(id: string, data: Partial<{ id: string; name: string; price: number; quantity: number }>): Promise<void> {
     await this.prisma.product.update({
       where: { id: id },
       data: {

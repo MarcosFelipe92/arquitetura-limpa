@@ -21,7 +21,7 @@ Content-Type: application/json
 ###
 
 # @name Update
-PUT http://localhost:8080/products/9f8b9106-e019-4292-8419-84fa07a49d12
+PUT http://localhost:8080/products/9f8b9106-e019-4292-8419-84fa07a49d124
 Content-Type: application/json
 
 {
