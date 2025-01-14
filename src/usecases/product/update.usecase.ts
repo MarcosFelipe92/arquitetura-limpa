@@ -1,3 +1,4 @@
+import { NegativeProductPriceError } from "../../domain/exceptions/product.errors";
 import { Product } from "../../domain/product/entity/product";
 import { ProductGateway } from "../../domain/product/gateway/product.gateway";
 import { NotFoundError } from "../../infra/api/errors/api.errors";
@@ -22,14 +23,15 @@ export class UpdateProductUsecase implements Usecase<UpdateProductInputDto, Upda
 
   public async execute({ id, name, price }: UpdateProductInputDto): Promise<UpdateProductOutputDto> {
     const product = await this.productGateway.findById(id);
+
     if (!product) {
       throw new NotFoundError(`Produto com o id ${id} não existe.`);
     }
 
-    await this.productGateway.update(id, { name, price });
+    const updatedProduct = Product.build(name, price);
 
-    const output = { id };
+    await this.productGateway.update(id, { name: updatedProduct.name, price: updatedProduct.price });
 
-    return output;
+    return { id };
   }
 }

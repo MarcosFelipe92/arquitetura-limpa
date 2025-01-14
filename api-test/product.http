@@ -21,7 +21,7 @@ Content-Type: application/json
 ###
 
 # @name Update
-PUT http://localhost:8080/products/9f8b9106-e019-4292-8419-84fa07a49d124
+PUT http://localhost:8080/products/9f8b9106-e019-4292-8419-84fa07a49d12
 Content-Type: application/json
 
 {
@@ -55,10 +55,3 @@ Content-Type: application/json
 DELETE http://localhost:8080/products/1b1cde89-5939-4976-a598-724ebe701006
 Content-Type: application/json
 
-###
-POST http://localhost:8080/products/f11ce3a3-1d43-4f6c-bd55-fac45981767f/sell
-Content-Type: application/json
-
-{
-    "amount": 25
-}
